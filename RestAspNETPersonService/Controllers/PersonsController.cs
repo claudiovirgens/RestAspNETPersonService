@@ -4,8 +4,8 @@ using RestAspNETPersonService.Services;
 
 namespace RestAspNETPersonService.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    [ApiVersion("1")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonsController : ControllerBase
     {
         private IPersonService _personService;
@@ -39,8 +39,7 @@ namespace RestAspNETPersonService.Controllers
             return new ObjectResult(_personService.Create(person));
         }
 
-        // PUT api/values/5
-        //[HttpPut("{id}")]
+        // PUT api/values/5        
         [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
