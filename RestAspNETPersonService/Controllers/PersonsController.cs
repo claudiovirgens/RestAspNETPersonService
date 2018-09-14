@@ -40,11 +40,12 @@ namespace RestAspNETPersonService.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        [HttpPut]
         public IActionResult Put([FromBody] Person person)
         {
             if (person == null) return BadRequest();
-            return new ObjectResult(_personService.Create(person));
+            return new ObjectResult(_personService.Update(person));
         }
 
         // DELETE api/values/5
