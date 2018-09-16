@@ -12,8 +12,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RestAspNETPersonService.Context;
-using RestAspNETPersonService.Services;
-using RestAspNETPersonService.Services.Implementations;
+using RestAspNETPersonService.Business;
+using RestAspNETPersonService.Business.Implementations;
+using RestAspNETPersonService.Repository.Implementations;
+using RestAspNETPersonService.Repository;
 
 namespace RestAspNETPersonService
 {
@@ -38,8 +40,8 @@ namespace RestAspNETPersonService
             services.AddApiVersioning();
 
             //Dependency Injection  *********************************
-            services.AddScoped<IPersonService, PersonServiceImpl>();
-
+            services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
