@@ -21,20 +21,26 @@ namespace RestAspNETPersonService
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration _configuration { get; }
+        private readonly ILogger _logger;
+        public IHostingEnvironment _environment { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+            _environment = environment;
+            _logger = logger;
         }
 
-        public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            var connection = Configuration["MySQLConnection:MySQLConnectionString"];
-            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
-
+            var connectionString = _configuration["MySQLConnection:MySQLConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connectionString));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddApiVersioning();
