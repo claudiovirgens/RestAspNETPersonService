@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using RestAspNETPersonService.Context;
 using RestAspNETPersonService.Business;
 using RestAspNETPersonService.Business.Implementations;
 using RestAspNETPersonService.Repository.Implementations;
 using RestAspNETPersonService.Repository;
 using RestAspNETBookService.Business.Implementations;
-using RestAspNETBookService.Repository.Implementations;
 using RestAspNETPersonService.Repository.Generic;
+using Microsoft.Net.Http.Headers;
 
 namespace RestAspNETPersonService
 {
@@ -44,7 +38,13 @@ namespace RestAspNETPersonService
             var connectionString = _configuration["MySQLConnection:MySQLConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connectionString));
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc(options =>
+                {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));                
+                }
+            ).SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddXmlSerializerFormatters(); 
 
             services.AddApiVersioning();
 
