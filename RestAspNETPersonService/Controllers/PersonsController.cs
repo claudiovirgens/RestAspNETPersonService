@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestAspNETPersonService.Models;
 using RestAspNETPersonService.Business;
+using RestAspNETPersonService.Data.VO;
 
 namespace RestAspNETPersonService.Controllers
 {
@@ -19,7 +19,7 @@ namespace RestAspNETPersonService.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personBusiness.findAll());
+            return Ok(_personBusiness.FindAll());
         }
 
         // GET api/values/5
@@ -33,7 +33,7 @@ namespace RestAspNETPersonService.Controllers
 
         // POST api/values
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(_personBusiness.Create(person));
@@ -41,7 +41,7 @@ namespace RestAspNETPersonService.Controllers
 
         // PUT api/values/5        
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
             if (person == null) return BadRequest();
             var updatePerson = _personBusiness.Update(person);

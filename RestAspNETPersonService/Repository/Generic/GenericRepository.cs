@@ -60,7 +60,7 @@ namespace RestAspNETPersonService.Repository.Generic
             throw new NotImplementedException();
         }
 
-        public List<T> findAll()
+        public List<T> FindAll()
         {
             return dataset.ToList();
         }

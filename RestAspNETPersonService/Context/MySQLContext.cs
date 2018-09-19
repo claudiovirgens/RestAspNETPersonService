@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestAspNETPersonService.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using RestAspNETPersonService.Model;
 
 namespace RestAspNETPersonService.Context
 {

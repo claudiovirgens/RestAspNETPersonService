@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using RestAspNETPersonService.Context;
-using RestAspNETPersonService.Models;
+using RestAspNETPersonService.Model;
 using RestAspNETPersonService.Repository;
 
 namespace RestAspNETBookService.Repository.Implementations

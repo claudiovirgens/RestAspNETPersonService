@@ -1,59 +1,75 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RestAspNETPersonService.Models;
 using RestAspNETPersonService.Business;
+using RestAspNETPersonService.Data.VO;
+using RestAspNETPersonService.Model;
 
 namespace RestAspNETBookService.Controllers
 {
+    /* Mapeia as requisições de http://localhost:{porta}/api/books/v1/
+    Por padrão o ASP.NET Core mapeia todas as classes que extendem Controller
+    pegando a primeira parte do nome da classe em lower case [Book]Controller
+    e expõe como endpoint REST
+    */
     [ApiVersion("1")]
     [Route("api/[controller]/v{version:apiVersion}")]
-    public class BooksController : ControllerBase
+    public class BooksController : Controller
     {
-        private IBookBusiness _BookBusiness;
+        //Declaração do serviço usado
+        private IBookBusiness _bookBusiness;
 
-        public BooksController(IBookBusiness BookBusiness)
+        /* Injeção de uma instancia de IBookBusiness ao criar
+        uma instancia de BookController */
+        public BooksController(IBookBusiness bookBusiness)
         {
-            _BookBusiness = BookBusiness;
+            _bookBusiness = bookBusiness;
         }
 
-        // GET api/values
+        //Mapeia as requisições GET para http://localhost:{porta}/api/books/v1/
+        //Get sem parâmetros para o FindAll --> Busca Todos
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_BookBusiness.findAll());
+            return Ok(_bookBusiness.FindAll());
         }
 
-        // GET api/values/5
+        //Mapeia as requisições GET para http://localhost:{porta}/api/books/v1/{id}
+        //recebendo um ID como no Path da requisição
+        //Get com parâmetros para o FindById --> Busca Por ID
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var Book = _BookBusiness.FindById(id);
-            if (Book == null) return NotFound();
-            return Ok(Book);
+            var book = _bookBusiness.FindById(id);
+            if (book == null) return NotFound();
+            return Ok(book);
         }
 
-        // POST api/values
+        //Mapeia as requisições POST para http://localhost:{porta}/api/books/v1/
+        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]
-        public IActionResult Post([FromBody] Book Book)
+        public IActionResult Post([FromBody]BookVO book)
         {
-            if (Book == null) return BadRequest();
-            return new ObjectResult(_BookBusiness.Create(Book));
+            if (book == null) return BadRequest();
+            return new ObjectResult(_bookBusiness.Create(book));
         }
 
-        // PUT api/values/5        
+        //Mapeia as requisições PUT para http://localhost:{porta}/api/books/v1/
+        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPut]
-        public IActionResult Put([FromBody] Book Book)
+        public IActionResult Put([FromBody]BookVO book)
         {
-            if (Book == null) return BadRequest();
-            var updateBook = _BookBusiness.Update(Book);
-            if (updateBook == null) return NoContent();
-            return new ObjectResult(updateBook);
+            if (book == null) return BadRequest();
+            var updatedBook = _bookBusiness.Update(book);
+            if (updatedBook == null) return BadRequest();
+            return new ObjectResult(updatedBook);
         }
 
-        // DELETE api/values/5
+
+        //Mapeia as requisições DELETE para http://localhost:{porta}/api/books/v1/{id}
+        //recebendo um ID como no Path da requisição
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _BookBusiness.Delete(id);
+            _bookBusiness.Delete(id);
             return NoContent();
         }
     }

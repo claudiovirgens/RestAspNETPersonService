@@ -1,17 +1,14 @@
-﻿using RestAspNETPersonService.Models;
-using System;
+﻿using RestAspNETPersonService.Data.VO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAspNETPersonService.Business
 {
     public interface IBookBusiness
     {
-        Book Create(Book books);
-        Book FindById(long id);
-        List<Book> findAll();
-        Book Update(Book books);
+        BookVO Create(BookVO book);
+        BookVO FindById(long id);
+        List<BookVO> FindAll();
+        BookVO Update(BookVO book);
         void Delete(long id);
     }
 }

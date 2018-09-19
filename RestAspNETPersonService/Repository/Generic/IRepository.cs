@@ -10,7 +10,7 @@ namespace RestAspNETPersonService.Repository.Generic
     {
         T Create(T item);
         T FindById(long id);
-        List<T> findAll();
+        List<T> FindAll();
         T Update(T item);
         void Delete(long id);
 

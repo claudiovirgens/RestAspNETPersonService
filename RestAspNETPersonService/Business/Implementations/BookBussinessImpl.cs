@@ -1,54 +1,57 @@
 ﻿using System.Collections.Generic;
-using RestAspNETPersonService.Models;
-using RestAspNETPersonService.Repository;
 using RestAspNETPersonService.Business;
 using RestAspNETPersonService.Repository.Generic;
+using RestAspNETPersonService.Model;
+using RestAspNETPersonService.Data.Converters;
+using RestAspNETPersonService.Data.VO;
 
 namespace RestAspNETBookService.Business.Implementations
 {
     public class BookBusinessImpl : IBookBusiness
     {
-        
+
         private IRepository<Book> _repository;
+
+        private readonly BookConverter _converter;
 
         public BookBusinessImpl(IRepository<Book> repository)
         {
             _repository = repository;
+            _converter = new BookConverter();
         }
 
-        public Book Create(Book Book)
+        public BookVO Create(BookVO book)
         {
-           //Add Bussiness Rules Here 
-            return _repository.Create(Book);
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Create(bookEntity);
+            return _converter.Parse(bookEntity);
+        }
+
+        public BookVO FindById(long id)
+        {
+            return _converter.Parse(_repository.FindById(id));
+        }
+
+        public List<BookVO> FindAll()
+        {
+            return _converter.ParseList(_repository.FindAll());
+        }
+
+        public BookVO Update(BookVO book)
+        {
+            var bookEntity = _converter.Parse(book);
+            bookEntity = _repository.Update(bookEntity);
+            return _converter.Parse(bookEntity);
         }
 
         public void Delete(long id)
         {
-            //Add Bussiness Rules Here 
             _repository.Delete(id);
         }
 
-        public List<Book> findAll()
+        public bool Exists(long id)
         {
-            return _repository.findAll();
-
+            return _repository.Exists(id);
         }
-
-            
-        public Book FindById(long id)
-        {
-            //Add Bussiness Rules Here 
-            return _repository.FindById(id);
-            
-        }
-
-        public Book Update(Book Book)
-        {
-            //Add Bussiness Rules Here 
-            return _repository.Update(Book);
-            
-        }
-
-      
     }
 }

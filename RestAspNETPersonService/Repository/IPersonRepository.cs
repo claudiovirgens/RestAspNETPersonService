@@ -1,8 +1,5 @@
-﻿using RestAspNETPersonService.Models;
-using System;
+﻿using RestAspNETPersonService.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAspNETPersonService.Repository
 {
