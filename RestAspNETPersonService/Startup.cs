@@ -40,7 +40,7 @@ namespace RestAspNETPersonService
             
             services.AddMvc(options =>
                 {
-                options.RespectBrowserAcceptHeader = true;
+                options.RespectBrowserAcceptHeader = false;
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));                
                 }
