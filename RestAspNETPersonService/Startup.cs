@@ -18,6 +18,7 @@ using RestAspNETPersonService.Repository.Implementations;
 using RestAspNETPersonService.Repository;
 using RestAspNETBookService.Business.Implementations;
 using RestAspNETBookService.Repository.Implementations;
+using RestAspNETPersonService.Repository.Generic;
 
 namespace RestAspNETPersonService
 {
@@ -51,7 +52,10 @@ namespace RestAspNETPersonService
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
             services.AddScoped<IBookBusiness, BookBusinessImpl>();
-            services.AddScoped<IBookRepository, BookRepositoryImpl>();
+            //services.AddScoped<IBookRepository, BookRepositoryImpl>();
+            
+            //Dependency Injection of GenericRepository
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

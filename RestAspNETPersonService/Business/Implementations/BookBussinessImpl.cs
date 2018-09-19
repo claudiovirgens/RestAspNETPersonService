@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using RestAspNETPersonService.Models;
 using RestAspNETPersonService.Repository;
 using RestAspNETPersonService.Business;
-using RestAspNETPersonService.Repository;
+using RestAspNETPersonService.Repository.Generic;
 
 namespace RestAspNETBookService.Business.Implementations
 {
     public class BookBusinessImpl : IBookBusiness
     {
         
-        private IBookRepository _repository;
+        private IRepository<Book> _repository;
 
-        public BookBusinessImpl(IBookRepository repository)
+        public BookBusinessImpl(IRepository<Book> repository)
         {
             _repository = repository;
         }
