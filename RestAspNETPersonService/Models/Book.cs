@@ -11,11 +11,11 @@ namespace RestAspNETPersonService.Models
     {
         [Key]
         [Column("id")]
-        public long? Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public decimal Price { get; set; }
-        public DateTime lauchDate { get; set; }
+        public DateTime launchDate { get; set; }
 
     }
 }

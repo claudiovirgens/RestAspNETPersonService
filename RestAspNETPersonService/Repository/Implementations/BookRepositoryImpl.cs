@@ -83,5 +83,10 @@ namespace RestAspNETBookService.Repository.Implementations
         {
             return _context.Books.Any(p => p.Id.Equals(id));
         }
+
+        public bool Exists(string id)
+        {
+            return _context.Books.Any(p => p.Id.Equals(id));
+        }
     }
 }

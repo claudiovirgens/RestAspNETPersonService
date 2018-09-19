@@ -16,6 +16,8 @@ using RestAspNETPersonService.Business;
 using RestAspNETPersonService.Business.Implementations;
 using RestAspNETPersonService.Repository.Implementations;
 using RestAspNETPersonService.Repository;
+using RestAspNETBookService.Business.Implementations;
+using RestAspNETBookService.Repository.Implementations;
 
 namespace RestAspNETPersonService
 {
@@ -48,6 +50,8 @@ namespace RestAspNETPersonService
             //Dependency Injection  *********************************
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
+            services.AddScoped<IBookBusiness, BookBusinessImpl>();
+            services.AddScoped<IBookRepository, BookRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestAspNETPersonService.Repository
 {
-    interface IBookRepository
+    public interface IBookRepository
     {
         Book Create(Book books);
         Book FindById(long id);
@@ -14,5 +14,6 @@ namespace RestAspNETPersonService.Repository
         Book Update(Book books);
         void Delete(long id);
         bool Exists(long? id);
+        bool Exists(string id);
     }
 }
