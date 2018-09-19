@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using RestAspNETPersonService.Models;
 using RestAspNETPersonService.Repository;
+using RestAspNETPersonService.Repository.Generic;
 
 namespace RestAspNETPersonService.Business.Implementations
 {
     public class PersonBusinessImpl : IPersonBusiness
     {
         
-        private IPersonRepository _repository;
+        private IRepository<Person> _repository;
 
-        public PersonBusinessImpl(IPersonRepository repository)
+        public PersonBusinessImpl(IRepository<Person> repository)
         {
             _repository = repository;
         }
