@@ -13,6 +13,7 @@ using RestAspNETPersonService.Repository;
 using RestAspNETBookService.Business.Implementations;
 using RestAspNETPersonService.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace RestAspNETPersonService
 {
@@ -48,6 +49,12 @@ namespace RestAspNETPersonService
 
             services.AddApiVersioning();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Restfull Api With Asp.net Core 2.0" ,
+                    Version = "v1"});
+            });
+
             //Dependency Injection  *********************************
             services.AddScoped<IPersonBusiness, PersonBusinessImpl>();
             services.AddScoped<IPersonRepository, PersonRepositoryImpl>();
@@ -71,7 +78,25 @@ namespace RestAspNETPersonService
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI( c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
+            var option = new Microsoft.AspNetCore.Rewrite.RewriteOptions();
+            option.AddRedirect("^$", "swagger");
+            app.UseRewriter(option);
+
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "DefaultApi",
+                    template: "{controller=Values}/{id?}"
+                    );
+            });
         }
     }
 }
